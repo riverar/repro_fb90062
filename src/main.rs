@@ -9,12 +9,15 @@ fn test_colors_features() {
     // valuetype [System.Runtime.WindowsRuntime]Windows.UI.Color get_AliceBlue () runtime managed internalcall 
     //                                          ^^^^^^^^^^^^^^^^
 
-    let typ = reader.expect_type_def(("Microsoft.UI", "Colors")).cfg();
-    let features = typ.features("Microsoft");
+    let mut features = std::collections::HashSet::new();
+    reader.expect_type_def(("Microsoft.UI", "Colors"))
+        .methods()
+        .flat_map(|m| m.cfg().features("Microsoft"))
+        .for_each(|m| { let _ = &features.insert(m); } );
 
-    println!("Returned features\n{:#?}", features);
+    println!("Returned unique features\n{:#?}", features);
 
     assert!(features.len() > 1);
-    assert_eq!(features[0], "Microsoft.UI");
-    assert_eq!(features[1], "Windows.UI");
+    assert_eq!(features.contains("Microsoft.UI"), true);
+    assert_eq!(features.contains("Windows.UI"), true);
 }
