@@ -5,9 +5,7 @@ edition = "2018"
 publish = false
 
 [dependencies.windows-bindgen]
-git = "https://github.com/riverar/windows-rs"
-rev = "bc011b440"
+version = "0.33"
 
 [dependencies.windows-metadata]
-git = "https://github.com/riverar/windows-rs"
-rev = "bc011b440"
+version = "0.33"

@@ -12,6 +12,8 @@ fn test_colors_features() {
     let typ = reader.expect_type_def(("Microsoft.UI", "Colors")).cfg();
     let features = typ.features("Microsoft");
 
+    println!("Returned features\n{:#?}", features);
+
     assert!(features.len() > 1);
     assert_eq!(features[0], "Microsoft.UI");
     assert_eq!(features[1], "Windows.UI");
